@@ -4,6 +4,9 @@ sentence by sentence and to find the frequencies of test words in the given patt
 
 The files of the sub-corps can be found here: 
 https://entu.keeleressursid.ee/shared/7775/1kHe9ZMif8cmPek9xtroJcOso9xmy4MCzGHllPc6aVQMVwDJS6KCg8LW4ys9Qkdx
+
+@Author: Ahti Lohk
+@Date: 03/07/2022
 """
 
 from estnltk.corpus_processing.parse_enc import parse_enc_file_iterator
