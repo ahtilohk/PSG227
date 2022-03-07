@@ -1,3 +1,6 @@
+# The aim of the program is to go through each sub-corpus of the text corpus ENC2019 
+# sentence by sentence and to find the frequencies of test words in the given patterns.
+
 from estnltk.corpus_processing.parse_enc import parse_enc_file_iterator
 import os
 
