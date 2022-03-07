@@ -1,7 +1,6 @@
 from estnltk.corpus_processing.parse_enc import parse_enc_file_iterator
 import os
 
-
 with open("test_words.txt", mode = "r", encoding = "utf-8-sig") as f_in:
     words = f_in.readlines()
     test_words = [word.strip() for word in words]
@@ -11,7 +10,6 @@ special_words = ['hakanud', 'keeranud', 'pandud', 'osanud', 'tahtnud']
 leena_words = "ainult|alati|algul|alla|alles|alt|ammu|edasi|edaspidi|eelkõige|eemale|ees|ega|ehk|ei|eile|eks|enamasti|enam|enne|eriti|esialgu|esile|esiteks|esmalt|ette|harva|heaks|hiljem|homme|ikkagi|ikka|ilmselt|isegi|ise|jalga|ja|juba|just|juurde|ju|jälle|järele|ka|kaasa|kas|kauaks|kaua|kinni|kohale|kohapeal|kohe|kokku|kord|kuhugi|kuhu|kui|kuidagi|kuidas|kuigi|kunagi|kus|kusagil|kusagilt|kusjuures|kuskilt|kust|kõige|kõigepealt|kõrvale|külge|küll|las|ligi|läbi|maha|miks|mil|millal|mistõttu|mitte|muidugi|muidu|mullu|mõnikord|mööda|nagu|niisiis|nii|nimelt|nõnda|näiteks|nüüd|ometi|otsa|paraku|peagi|peale|pealt|pigem|praegu|pärast|ringi|sageli|samas|samuti|sealhulgas|seal|sealt|see-eest|seega|seejuures|seejärel|seekord|seepärast|seetõttu|sellepärast|seni|siia|siiani|siin|siinkohal|siis|siiski|siit|sinna|sisse|sugugi|taas|taga|tagant|tagasi|tahes|tegelikult|tihti|tulenevalt|tõesti|täis|tänaseks|täna|tänavu|vahele|vahel|vahepeal|vaid|vaja|varem|varsti|vastu|veel|vist|võib-olla|võibolla|või|välja|väljas|ära|ülal|üldse|üleeile|üle|üles|üleval|ümber"
 
 leena_words = leena_words.split('|')
-
 
 path = r'C:\Users\ahti.lohk\Documents\Anaconda Projects\Projekt_PSG227\Corpus_ENC2019'
 
