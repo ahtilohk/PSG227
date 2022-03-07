@@ -1,6 +1,8 @@
 """ 
-The aim of the program is to go through each sub-corpus of the text corpus ENC2019 
-sentence by sentence and to find the frequencies of test words in the given patterns.
+The aim of the program is to go through the ENC2019 sub-corpus of each text corpus 
+sentence by sentence and to find all occurrences of test words in the given patterns.
+
+The results for each sub-corpus are saved in a separate txt file.
 
 The files of the sub-corps can be found here: 
 https://entu.keeleressursid.ee/shared/7775/1kHe9ZMif8cmPek9xtroJcOso9xmy4MCzGHllPc6aVQMVwDJS6KCg8LW4ys9Qkdx
