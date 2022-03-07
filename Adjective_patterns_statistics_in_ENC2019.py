@@ -14,7 +14,6 @@ leena_words = leena_words.split('|')
 
 
 path = r'C:\Users\ahti.lohk\Documents\Anaconda Projects\Projekt_PSG227\Corpus_ENC2019'
-taken_words = []
 
 k = 0
 for root, dirs, files in os.walk(path):
