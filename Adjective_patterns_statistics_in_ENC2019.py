@@ -27,6 +27,7 @@ for root, dirs, files in os.walk(path):
                 
                 for sentence in text_obj.original_sentences:
                     words = sentence.original_words.text
+                    
                     lemmas = sentence.original_morph_analysis.lemma
                     lemmas = [lemma[0] for lemma in lemmas]
                     
@@ -35,6 +36,7 @@ for root, dirs, files in os.walk(path):
                     
                     forms = sentence.original_morph_analysis.form
                     forms = [form[0] for form in forms]
+                    
                     n = len(words)
     
                     for i in range(0, n):
@@ -74,12 +76,10 @@ for root, dirs, files in os.walk(path):
                                     
                                     result = "D+test(L):" + words[i] + ' ' + words[i+1] + "|" + word_lemma 
                                     f_output.write(result + "\n")
-
-        
+     
                                 if words[i].lower() == "ei" and (lemmas[i+1].lower() in test_words or words[i+1].lower() in special_words):
                                     f_output.write(result + "\n")
                                     result = "EI+test:" + words[i] + ' ' + words[i+1] + "|" + word_lemma 
-
                                
                             if i < n-3 and isinstance(words[i+1], str) and isinstance(lemmas[i+1], str) and \
                                            isinstance(words[i+2], str) and isinstance(lemmas[i+2], str) and \
