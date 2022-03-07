@@ -1,4 +1,5 @@
-""" The aim of the program is to go through each sub-corpus of the text corpus ENC2019 
+""" 
+The aim of the program is to go through each sub-corpus of the text corpus ENC2019 
 sentence by sentence and to find the frequencies of test words in the given patterns.
 
 The files of the sub-corps can be found here: 
