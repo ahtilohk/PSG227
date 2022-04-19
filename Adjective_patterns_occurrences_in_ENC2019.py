@@ -2,6 +2,9 @@
 The purpose of the program is to go through all sub-corpora of the ENC2019 text corpus 
 and find all occurrences of test words in the given test patterns.
 
+The corpus processing module of estnltk is used to process the ENC2019 text corpus.
+See: https://nbviewer.org/github/estnltk/estnltk/blob/version_1.6/tutorials/corpus_processing/importing_text_objects_from_corpora.ipynb
+
 The results for each sub-corpus are saved in a separate txt file.
 
 The files of the sub-corps can be found here: 
