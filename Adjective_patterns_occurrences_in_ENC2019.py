@@ -1,4 +1,7 @@
 """ 
+
+*** Adjective_patterns_occurrences_in_ENC2019_with_estnltk_corpus_processing_module ***
+
 The purpose of the program is to go through all sub-corpora of the ENC2019 text corpus 
 and find all occurrences of test words in the given test patterns.
 
