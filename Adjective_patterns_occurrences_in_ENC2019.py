@@ -1,6 +1,6 @@
 """ 
-The aim of the program is to go through the ENC2019 sub-corpus of each text corpus 
-sentence by sentence and to find all occurrences of test words in the given patterns.
+The purpose of the program is to go through all sub-corpora of the ENC2019 text corpus 
+and find all occurrences of test words in the given test patterns.
 
 The results for each sub-corpus are saved in a separate txt file.
 
