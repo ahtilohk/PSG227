@@ -5,8 +5,9 @@ Created on Wed Feb  3 12:33:32 2021
 
 *** Test-patterns_occurrences_in_ENC2019_without_estnltk_corpus_processing_module ***
 
-The aim of the program is to go through the ENC2019 sub-corpus of each text corpus 
-sentence by sentence and to find all occurrences of test words in the given patterns.
+The purpose of the program is to go through all sub-corpora in the ENC2019 text corpus 
+and find all occurrences of test words in the given test patterns.
+
 The test-patterns statistics are saved in an Excel-file.
 
 The files of the sub-corpora can be found here: 
