@@ -186,16 +186,13 @@ def write_results_to_Excel_file(test_words, comparatives, pattern_labels, test_p
 	return
 
 
-def test_patterns_main():
+if __name__ == "__main__":
 
-    test_words = read_file("test_words.txt")
-    
-    #test_words = ['hoiduv', 'iseloomustatud', 'allunud', 'jätnud']
-    
+    test_words = read_file("test_words.txt")   
     comparatives = read_file("comparatives_of_test_words.txt")
-    #comparatives = []
-    
 	
+    output_filename = "test_patterns_results.xlsx"
+    
     path = r"C:\Users\ahti.lohk\Documents\Anaconda Projects\Projekt_PSG227\Corpus_ENC2019\\"
     pattern_labels = ['test_S', 'test_S_INFL', 'SB_test_S', 'V_?_test_S', 'D_test', 'EI_test', 'olema_test', 'olema_D_test']
 	
@@ -204,10 +201,8 @@ def test_patterns_main():
 	'etnc19_web_2019.vert', 'etnc19_web_2017.vert']
 	
     test_pattern_dict, comparative_lemma_dict = find_test_patterns(test_words, comparatives, pattern_labels, file_names, path)
-    write_results_to_Excel_file(test_words, comparatives, pattern_labels, test_pattern_dict, comparative_lemma_dict, "test_patterns_results_Valmis_sonad.xlsx")
-	
-	
-test_patterns_main()
+    write_results_to_Excel_file(test_words, comparatives, pattern_labels, test_pattern_dict, comparative_lemma_dict, output_filename)
+
 
 
 		 
