@@ -57,7 +57,7 @@ def find_test_patterns(test_words, comparatives, patterns_labels, file_names, pa
 
     pattern_dict = {word:{} for word in test_words}
     test_pattern_dict = {word:{} for word in test_words}
-    comparative_lemma_dict = {word:0 for word in comparatives}
+    comparative_freq_dict = {word:0 for word in comparatives}
 
     for file in file_names:
         file = open(path + file, mode = "r", encoding="utf-8")
@@ -125,7 +125,7 @@ def find_test_patterns(test_words, comparatives, patterns_labels, file_names, pa
                             test_word_in_sent = True
 						
                         if lemma in comparatives:
-                            comparative_lemma_dict[lemma] += 1
+                            comparative_freq_dict[lemma] += 1
 							
                     except:
                         pass
@@ -144,7 +144,7 @@ def find_test_patterns(test_words, comparatives, patterns_labels, file_names, pa
 
     return test_pattern_dict, comparative_lemma_dict
 
-def write_results_to_Excel_file(test_words, comparatives, pattern_labels, test_pattern_dict, comparative_lemma_dict, file_name):
+def write_results_to_Excel_file(test_words, comparatives, pattern_labels, test_pattern_dict, comparative_freq_dict, file_name):
 
 	workbook = xlsxwriter.Workbook(file_name)
 	worksheet = workbook.add_worksheet()
@@ -179,7 +179,7 @@ def write_results_to_Excel_file(test_words, comparatives, pattern_labels, test_p
 	for word in comparatives:
 		i+=1
 		worksheet.write(i, 0, word)
-		worksheet.write(i, 1, comparative_lemma_dict[word])
+		worksheet.write(i, 1, comparative_freq_dict[word])
 
 	workbook.close()
 
@@ -200,8 +200,8 @@ if __name__ == "__main__":
 	'etnc19_wikipedia_2017.vert', 'etnc19_reference_corpus.vert', 'etnc19_web_2013.vert', 
 	'etnc19_web_2019.vert', 'etnc19_web_2017.vert']
 	
-    test_pattern_dict, comparative_lemma_dict = find_test_patterns(test_words, comparatives, pattern_labels, file_names, path)
-    write_results_to_Excel_file(test_words, comparatives, pattern_labels, test_pattern_dict, comparative_lemma_dict, output_filename)
+    test_pattern_dict, comparative_freq_dict = find_test_patterns(test_words, comparatives, pattern_labels, file_names, path)
+    write_results_to_Excel_file(test_words, comparatives, pattern_labels, test_pattern_dict, comparative_freq_dict, output_filename)
 
 
 
