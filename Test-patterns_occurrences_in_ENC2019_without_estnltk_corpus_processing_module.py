@@ -142,7 +142,7 @@ def find_test_patterns(test_words, comparatives, patterns_labels, file_names, pa
 		
         file.close()
 
-    return test_pattern_dict, comparative_lemma_dict
+    return test_pattern_dict, comparative_freq_dict
 
 def write_results_to_Excel_file(test_words, comparatives, pattern_labels, test_pattern_dict, comparative_freq_dict, file_name):
 
