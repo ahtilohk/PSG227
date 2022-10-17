@@ -202,8 +202,3 @@ if __name__ == "__main__":
 	
     test_pattern_dict, comparative_freq_dict = find_test_patterns(test_words, comparatives, pattern_labels, file_names, path)
     write_results_to_Excel_file(test_words, comparatives, pattern_labels, test_pattern_dict, comparative_freq_dict, output_filename)
-
-
-
-		 
-		 
