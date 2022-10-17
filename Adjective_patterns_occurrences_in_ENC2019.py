@@ -11,7 +11,7 @@ See: https://nbviewer.org/github/estnltk/estnltk/blob/version_1.6/tutorials/corp
 The results for each sub-corpus are saved in a separate txt file.
 
 The files of the sub-corps can be found here: 
-https://entu.keeleressursid.ee/shared/7775/1kHe9ZMif8cmPek9xtroJcOso9xmy4MCzGHllPc6aVQMVwDJS6KCg8LW4ys9Qkdx
+https://entu.keeleressursid.ee/shared/7769/N66ZdfvwzQuXWIvIjnhVuX74oWmi1zrruZ1VpN8QE1Hj6jbfq5oMBxm8YQDrugyM
 
 @Author: Ahti Lohk
 @Date: 03/07/2022
