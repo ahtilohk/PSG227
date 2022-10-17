@@ -188,11 +188,11 @@ def write_results_to_Excel_file(test_words, comparatives, pattern_labels, test_p
 
 def test_patterns_main():
 
-    test_words = read_file("Valmis_sonad.txt")
+    test_words = read_file("test_words.txt")
     
     #test_words = ['hoiduv', 'iseloomustatud', 'allunud', 'jätnud']
     
-    comparatives = read_file("valmis_vordevormid.txt")
+    comparatives = read_file("comparatives_of_test_words.txt")
     #comparatives = []
     
 	
