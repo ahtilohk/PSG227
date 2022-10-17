@@ -1,17 +1,16 @@
 # -*- coding: utf-8 -*-
 """
-Created on Wed Feb  3 12:33:32 2021
+Created on Mon 18 April 12:33:32 202
 @author: Ahti Lohk
 
 *** Test-patterns_occurrences_in_ENC2019_without_estnltk_corpus_processing_module ***
 
-The purpose of the program is to go through all sub-corpora in the ENC2019 text corpus 
-and find all occurrences of test words in the given test patterns.
-
+The aim of the program is to go through the ENC2019 sub-corpus of each text corpus 
+sentence by sentence and to find all occurrences of test words in the given patterns.
 The test-patterns statistics are saved in an Excel-file.
 
 The files of the sub-corpora can be found here: 
-https://entu.keeleressursid.ee/shared/7775/1kHe9ZMif8cmPek9xtroJcOso9xmy4MCzGHllPc6aVQMVwDJS6KCg8LW4ys9Qkdx
+https://entu.keeleressursid.ee/shared/7769/N66ZdfvwzQuXWIvIjnhVuX74oWmi1zrruZ1VpN8QE1Hj6jbfq5oMBxm8YQDrugyM
 """
 
 import xlsxwriter
@@ -37,97 +36,113 @@ def compose_test_patterns(prev_postag, next_postag, sentence, position):
             patterns.append('EI_test')
         elif sentence[position-1][1] == 'D':
             patterns.append('D_test')
+        elif sentence[position-1][2].lower() == 'olema':
+            patterns.append('olema_test')
+    if position > 1:
+        if sentence[position-2][2].lower() == 'olema':
+            if sentence[position-1][1] == 'D':
+                patterns.append('olema_D_test')
             
     return patterns
 
 def find_test_patterns(test_words, comparatives, patterns_labels, file_names, path):
     
-	sentence_started = False
-	sentence = []
-	test_word_in_sent = False
-	position_nr = 0
-	positions = []
-	words_seq = []
+    sentence_started = False
+    sentence = []
+    test_word_in_sent = False
+    taken_flag = False
+    position_nr = 0
+    positions = []
+    words_seq = []
 
-	pattern_dict = {word:{} for word in test_words}
-	test_pattern_dict = {word:{} for word in test_words}
-	comparative_lemma_dict = {word:0 for word in comparatives}
+    pattern_dict = {word:{} for word in test_words}
+    test_pattern_dict = {word:{} for word in test_words}
+    comparative_lemma_dict = {word:0 for word in comparatives}
 
-	for file in file_names:
-		file = open(path + file, mode = "r", encoding="utf-8")
-		print("FILE:", file)
-		for line in file:
+    for file in file_names:
+        file = open(path + file, mode = "r", encoding="utf-8")
+        print("FILE:", file)
+        for line in file:
 			
-			if sentence_started:
-				if "</s>" in line:
-					sentence_started = False
+            if sentence_started:
+                if "</s>" in line:
+                    sentence_started = False
 				
-					if test_word_in_sent:
+                    if test_word_in_sent:
 										
-						for i, position in enumerate(positions):
-							prev_position = position - 1
-							next_position = position + 1
+                        for i, position in enumerate(positions):
+                            prev_position = position - 1
+                            next_position = position + 1
 							
-							if position == 0:
-								prev_postag = '.'
-							else:
-								prev_postag = sentence[prev_position][1]
+                            if position == 0:
+                                prev_postag = '.'
+                            else:
+                                prev_postag = sentence[prev_position][1]
 								
-							if position == len(sentence) - 1:
-								 next_postag = '.'
-							else:
-								next_postag = sentence[next_position][1]
+                            if position == len(sentence) - 1:
+                                next_postag = '.'
+                            else:
+                                next_postag = sentence[next_position][1]
 		
-							pattern = prev_postag + "+test+" + next_postag
+                            pattern = prev_postag + "+test+" + next_postag
 												
-							pattern_dict[words_seq[i]][pattern] = pattern_dict[words_seq[i]].get(pattern, 0) + 1
+                            pattern_dict[words_seq[i]][pattern] = pattern_dict[words_seq[i]].get(pattern, 0) + 1
 							
-							test_patterns = compose_test_patterns(prev_postag, next_postag, sentence, position)
-							if len(test_patterns) > 0:
-								for pattern in test_patterns:
+                            test_patterns = compose_test_patterns(prev_postag, next_postag, sentence, position)
+                            if len(test_patterns) > 0:
+                                for pattern in test_patterns:
 									
-									try:
-										test_pattern_dict[words_seq[i]][pattern] = test_pattern_dict[words_seq[i]].get(pattern, 0) + 1
-									except:
-										pass
+                                    try:
+                                        test_pattern_dict[words_seq[i]][pattern] = test_pattern_dict[words_seq[i]].get(pattern, 0) + 1
+                                    except:
+                                        pass
 								
-					test_word_in_sent = False
-					position_nr = -1
+                    test_word_in_sent = False
+                    position_nr = -1
 					
-				else:
-					try:
-						word_info = line.split("\t")
-						word = word_info[0].lower()
-						postag = word_info[1][0]
-						form = word_info[1][1:]
-						lemma = word_info[2][:-2].lower()
-						sentence.append((word, postag, lemma, form))
+                else:
+                    try:
+                        word_info = line.split("\t")
+                        word = word_info[0].lower()
+                        postag = word_info[1][0]
+                        form = word_info[1][1:]
+                        lemma = word_info[2][:-2].lower()
+                        sentence.append((word, postag, lemma, form))
+                        
+                        taken_flag = False
+                        
+                        if len(word) > 3 and word[-3:] in ['nud', 'dud', 'tud'] and word in test_words:
+                            position_nr = len(sentence) - 1
+                            positions.append(position_nr)
+                            words_seq.append(word)
+                            test_word_in_sent = True
+                            taken_flag = True
+                        
+                        if not taken_flag and lemma in test_words:
+                            position_nr = len(sentence) - 1
+                            positions.append(position_nr)
+                            words_seq.append(lemma)
+                            test_word_in_sent = True
 						
-						if lemma in test_words:
-							position_nr = len(sentence) - 1
-							positions.append(position_nr)
-							words_seq.append(lemma)
-							test_word_in_sent = True
-						
-						if lemma in comparatives:
-							comparative_lemma_dict[lemma] += 1
+                        if lemma in comparatives:
+                            comparative_lemma_dict[lemma] += 1
 							
-					except:
-						pass
-			else:
+                    except:
+                        pass
+            else:
 					
-				if "<s>" in line:
-					sentence_started = True
-					sentence = []
-					position_nr = -1
-					positions = []
-					words_seq = []
-				else:
-					pass
+                if "<s>" in line:
+                    sentence_started = True
+                    sentence = []
+                    position_nr = -1
+                    positions = []
+                    words_seq = []
+                else:
+                    pass
 		
-		file.close()
+        file.close()
 
-	return test_pattern_dict, comparative_lemma_dict
+    return test_pattern_dict, comparative_lemma_dict
 
 def write_results_to_Excel_file(test_words, comparatives, pattern_labels, test_pattern_dict, comparative_lemma_dict, file_name):
 
@@ -173,20 +188,27 @@ def write_results_to_Excel_file(test_words, comparatives, pattern_labels, test_p
 
 def test_patterns_main():
 
-	test_words = read_file("test_words.txt")
-	comparatives = read_file("test_comparatives.txt")
+    test_words = read_file("Valmis_sonad.txt")
+    
+    #test_words = ['hoiduv', 'iseloomustatud', 'allunud', 'jätnud']
+    
+    comparatives = read_file("valmis_vordevormid.txt")
+    #comparatives = []
+    
 	
-	path = r"C:\Users\ahti.lohk\Documents\Anaconda Projects\Projekt_PSG227\Corpus_ENC2019\\"
-	pattern_labels = ['test_S', 'test_S_INFL', 'SB_test_S', 'V_?_test_S', 'D_test', 'EI_test']
+    path = r"C:\Users\ahti.lohk\Documents\Anaconda Projects\Projekt_PSG227\Corpus_ENC2019\\"
+    pattern_labels = ['test_S', 'test_S_INFL', 'SB_test_S', 'V_?_test_S', 'D_test', 'EI_test', 'olema_test', 'olema_D_test']
 	
-	file_names = ['etnc19_doaj.vert', 'etnc19_balanced_corpus.vert', 'etnc19_wikipedia_2019.vert', 
+    file_names = ['etnc19_doaj.vert', 'etnc19_balanced_corpus.vert', 'etnc19_wikipedia_2019.vert', 
 	'etnc19_wikipedia_2017.vert', 'etnc19_reference_corpus.vert', 'etnc19_web_2013.vert', 
 	'etnc19_web_2019.vert', 'etnc19_web_2017.vert']
 	
-	test_pattern_dict, comparative_lemma_dict = find_test_patterns(test_words, comparatives, pattern_labels, file_names, path)
-	write_results_to_Excel_file(test_words, comparatives, pattern_labels, test_pattern_dict, comparative_lemma_dict, "test_patterns_results.xlsx")
+    test_pattern_dict, comparative_lemma_dict = find_test_patterns(test_words, comparatives, pattern_labels, file_names, path)
+    write_results_to_Excel_file(test_words, comparatives, pattern_labels, test_pattern_dict, comparative_lemma_dict, "test_patterns_results_Valmis_sonad.xlsx")
 	
 	
-test_patterns_main()	
+test_patterns_main()
+
+
 		 
 		 
